@@ -59,14 +59,13 @@
 #     st.success(f"{selected_country.upper()} mamlakati uchun {year}-yildagi bashorat qilingan aholi soni: {result:,d}")
 
 
-
 import streamlit as st
 import pandas as pd
 import joblib  # Model yuklash uchun
 import json
 
 # Modelni yuklash
-model = joblib.load("aholimodel3.pkl")  # Model fayli yuklanadi
+model = joblib.load("aholimodel4.pkl")  # Model fayli yuklanadi
 
 # Datasetni yuklash
 df = pd.read_csv('pop.csv')
@@ -106,19 +105,13 @@ year = st.number_input("Bashorat qilish yili:", min_value=2025, max_value=2100, 
 if st.button("Bashorat Qiling"):
     country_df = selecting_country(df, selected_country)
     
-    # Input ma'lumotlarni tayyorlash
-    country_df = country_df.tail(1)  # Eng so‘nggi ma'lumotlarni olish
+    # Model uchun kiritmalarni tayyorlash
     input_data = pd.DataFrame({
-        'Year': [year]
+        'Year': [year]  # Modelning o'qitilgan formatiga mos kiritmalar
     })
     
     # Model yordamida bashorat qilish
-    result = model.predict(input_data)[0]  # `model.pkl` orqali bashorat
+    result = model.predict([[year]])[0]  # O'zgarish shu yerda!
     
     # Natijalarni ko'rsatish
     st.success(f"{selected_country.upper()} mamlakati uchun {year}-yildagi bashorat qilingan aholi soni: {int(result):,d}")
-
-
-
-
-
