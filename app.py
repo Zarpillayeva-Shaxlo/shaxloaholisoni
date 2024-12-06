@@ -4,7 +4,7 @@ import numpy as np
 import json
 # uzgarish
 # Modelni yuklash
-with open('aholimodel.pkl', 'rb') as f:
+with open('aholimodel3.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Mamlakatlar ro'yxatini JSON dan o'qish
